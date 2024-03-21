@@ -7,19 +7,16 @@ const port = process.argv[3] || 3000;
 
 app
   .use(express.static(path.join(__dirname, "public")))
-  .set("views", path.join(__dirname, "views"))
-  .set("view engine", "ejs");
+app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.json({ msg: "Home" });
 });
 
 app.get("/api", (req, res) => {
-  res.json({ msg: "Hello world" });
+  res.json({ msg: "api" });
 });
 
 app.use("/user", userRouter);
 
-app.listen(port, () => {
-  console.log(`Listening on http://localhost:${port}`);
-});
+app.listen(port);
